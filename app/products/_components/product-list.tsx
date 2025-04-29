@@ -1,11 +1,8 @@
-import { Product } from "@/app/generated/prisma";
+import { cachedGetProducts } from "@/app/_data-access/product/get-products";
 
 const ProductList = async () => {
-  const response = await fetch("http://localhost:3000/api/products", {
-    method: "GET",
-  });
+  const products = await cachedGetProducts();
 
-  const { products } = await response.json();
   return (
     <ul>
       {products.map((product) => (

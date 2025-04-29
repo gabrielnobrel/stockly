@@ -3,7 +3,6 @@ import { db } from "@/app/_lib/prisma";
 // *Apenas para referência
 
 export async function GET() {
-  await new Promise((resolve) => setTimeout(resolve, 5000));
   const products = await db.product.findMany({});
 
   return Response.json(
