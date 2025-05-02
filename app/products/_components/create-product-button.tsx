@@ -15,9 +15,8 @@ const CreateProductButton = () => {
           <PlusIcon size={20} />
           Novo Produto
         </Button>
-
-        <UpsertProductDialogContent onSuccess={() => setDialogIsOpen(false)} />
       </DialogTrigger>
+      <UpsertProductDialogContent onSuccess={() => setDialogIsOpen(false)} />
     </Dialog>
   );
 };
