@@ -35,7 +35,6 @@ const DeleteProductDialogContent = ({
     //   console.error("Error deleting product:", error);
     //   toast.error("Erro ao excluir o produto. Tente novamente.");
     // }
-
     executeDeleteProduct({ id: productId });
   };
 
@@ -44,7 +43,7 @@ const DeleteProductDialogContent = ({
       <AlertDialogHeader>
         <AlertDialogTitle>Você tem certeza?</AlertDialogTitle>
         <AlertDialogDescription>
-          Você está prestes a exluir este produto. Esta ação não pode ser
+          Você está prestes a excluir este produto. Esta ação não pode ser
           desfeita. Deseja continuar?
         </AlertDialogDescription>
       </AlertDialogHeader>

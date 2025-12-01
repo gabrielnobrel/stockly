@@ -45,7 +45,9 @@ const formSchema = z.object({
   productId: z.string().uuid({
     message: "O produto é obrigatório",
   }),
-  quantity: z.coerce.number().int().positive(),
+  quantity: z.coerce.number().int().positive({
+    message: "A quantidade deve ser maior que 0",
+  }),
 });
 
 type FormSchema = z.infer<typeof formSchema>;
@@ -250,7 +252,7 @@ const UpserSheetContent = ({
             )}
           />
 
-          <Button className="w-full gap-2 " variant={"secondary"}>
+          <Button className="w-full gap-2 " variant={"secondary"} type="submit">
             <PlusIcon size={20} />
             Adicionar produto à venda
           </Button>

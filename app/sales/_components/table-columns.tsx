@@ -38,7 +38,7 @@ export const saleTableColumns: ColumnDef<SaleTableColumns>[] = [
     }) => new Date(date).toLocaleDateString("pt-BR"),
   },
   {
-    header: "Acoes",
+    header: "Ações",
     cell: ({ row: { original: sale } }) => (
       <SalesTableDropdownMenu
         sale={sale}
