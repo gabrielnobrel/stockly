@@ -16,6 +16,10 @@ import MostSoldProducts, {
   MostSoldProductsSkeleton,
 } from "./_components/most-sold-products";
 
+export const metadata = {
+  title: "Dashboard",
+};
+
 const Home = async () => {
   return (
     <div className="flex flex-col w-full m-8 space-y-8 rounded-lg">

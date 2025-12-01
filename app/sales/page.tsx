@@ -11,6 +11,10 @@ import { getSales } from "../_data-access/sale/get-sale";
 import CreateSaleButton from "./_components/create-sale-button";
 import { saleTableColumns } from "./_components/table-columns";
 
+export const metadata = {
+  title: "Vendas",
+};
+
 const SalesPage = async () => {
   const sales = await getSales();
   const products = await getProducts();

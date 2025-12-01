@@ -9,6 +9,10 @@ import Header, {
   HeaderTitle,
 } from "../_components/header";
 
+export const metadata = {
+  title: "Produtos",
+};
+
 const ProductsPage = async () => {
   const products = await getProducts();
 
