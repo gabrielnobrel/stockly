@@ -23,7 +23,7 @@ export const SummaryCardValue = ({
 }: {
   children: React.ReactNode;
 }) => {
-  return <p className="text-2xl font-semibold text-slate-900">{children}</p>;
+  return <p className="text-2xl font-semibold">{children}</p>;
 };
 
 export const SummaryCard = ({ children }: { children: React.ReactNode }) => {
