@@ -8,43 +8,48 @@ import { revalidatePath } from "next/cache";
 export const deleteSale = actionClient
   .schema(deleteSaleSchema)
   .action(async ({ parsedInput: { id } }) => {
-    await db.$transaction(async (trx) => {
-      const sale = await trx.sale.findUnique({
-        where: {
-          id,
-        },
-        include: {
-          saleProducts: true,
-        },
+    try {
+      // Busca a venda com seus itens para usar infos depois (quantidade)
+      const sale = await db.sale.findUnique({
+        where: { id },
+        include: { saleProducts: true },
       });
 
       if (!sale) {
-        return;
+        throw new Error("Venda não encontrada");
       }
 
-      await trx.sale.delete({
-        where: {
-          id,
-        },
+      // Executa em transação: primeiro remove saleProducts, depois remove a sale,
+      // e por fim repõe o estoque a partir dos dados já carregados em `sale`.
+      await db.$transaction(async (trx) => {
+        await trx.saleProduct.deleteMany({
+          where: { saleId: id },
+        });
+
+        await trx.sale.delete({
+          where: { id },
+        });
+
+        // Repor o estoque com base nas linhas que carregamos antes
+        for (const product of sale.saleProducts) {
+          await trx.product.update({
+            where: { id: product.productId },
+            data: {
+              stock: {
+                increment: product.quantity,
+              },
+            },
+          });
+        }
       });
 
-      for (const product of sale.saleProducts) {
-        await trx.product.update({
-          where: {
-            id: product.productId,
-          },
-          data: {
-            stock: {
-              increment: product.quantity,
-            },
-          },
-        });
-      }
-    });
-
-    // revalidatePath("/sales");
-    // revalidatePath("/products");
-    // revalidatePath("/");
-
-    revalidatePath("/", "layout");
+      // Revalida as rotas relevantes
+      // revalidatePath("/sales");
+      // revalidatePath("/products");
+      revalidatePath("/", "layout");
+    } catch (error) {
+      console.error("Erro ao deletar venda:", error);
+      // relança para que o client/useAction receba onError
+      throw error;
+    }
   });

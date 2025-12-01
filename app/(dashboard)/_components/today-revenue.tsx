@@ -11,7 +11,7 @@ import { DollarSign } from "lucide-react";
 import { formatCurrency } from "@/app/_helpers/currency";
 
 const TodayRevenueCard = async () => {
-  await new Promise((resolve) => setTimeout(resolve, 2000));
+  // await new Promise((resolve) => setTimeout(resolve, 2000));
   const todayRevenue = await getTodayRevenue();
 
   return (
