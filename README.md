@@ -1,36 +1,84 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Stockly
 
-## Getting Started
+Stockly é uma aplicação Next.js para gerenciamento de estoque e vendas — painel administrativo simples para cadastrar produtos, registrar vendas e acompanhar métricas (receita, produtos mais vendidos, estoque, etc.).
 
-First, run the development server:
+## Principais Tecnologias
+
+- Next.js (App Router)
+- TypeScript
+- Tailwind CSS
+- Prisma (PostgreSQL / SQLite)
+- Sonner (notificações) e outros componentes UI customizados
+
+## Principais Funcionalidades
+
+- Cadastro e edição de produtos
+- Registro e gerenciamento de vendas
+- Dashboard com métricas: receita do dia, últimos 14 dias, produtos mais vendidos
+- Controle de estoque e total de produtos
+- Operações seguras via actions com validação de schema
+
+## Como Executar (Desenvolvimento)
+
+Pré-requisitos: Node.js (>= 18 recomendado), pnpm/npm/yarn, banco de dados (Postgres ou SQLite).
+
+1. Instale dependências:
+
+```bash
+npm install
+# ou
+pnpm install
+```
+
+2. Crie um arquivo de ambiente:
+
+```bash
+cp .env.example .env
+# Edite `.env` com suas credenciais (DATABASE_URL, NEXTAUTH_URL, etc.)
+```
+
+3. Configure o banco de dados (se estiver usando Prisma + SQLite/Postgres):
+
+```bash
+npx prisma migrate dev --name init
+```
+
+4. Rode em modo de desenvolvimento:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abra http://localhost:3000
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Build e Produção
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm run start
+```
 
-## Learn More
+## Estrutura Principal
 
-To learn more about Next.js, take a look at the following resources:
+- `app/` — rotas e componentes da aplicação (páginas, \_components, actions)
+- `prisma/` — schema do Prisma e migrations
+- `public/` — assets públicos (coloque screenshots em `public/screenshots`)
+- `components/` e `app/_components/` — componentes reutilizáveis e UI
+- `app/_data-access/` — queries e funções para dados (dashboard, product, sale)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Screenshots (adicione manualmente)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+![Dashboard](./public/.github/Home.png)
 
-## Deploy on Vercel
+## Observações
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Mantenha o arquivo ` .env.example` no repositório para orientar variáveis de ambiente.
+- Se for usar Postgres em produção, preencha `DATABASE_URL` e rode migrations adequadas.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Contribuição
+
+Pull requests são bem-vindos. Para alterações significativas, abra uma issue primeiro para discutir o que pretende fazer.
+
+## 👽Contato
+
+gabriel_nobresantos@hotmail.com
