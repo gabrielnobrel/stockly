@@ -11,7 +11,7 @@ export const upsertSale = actionClient
   .action(async ({ parsedInput: { products, id } }) => {
     const isUpdate = !!id;
     if (isUpdate) {
-      await db.$transaction(async (trx) => {
+      await db.$transaction(async (trx: any) => {
         const existingSale = await trx.sale.findUnique({
           where: { id },
           include: { saleProducts: true },
@@ -37,7 +37,7 @@ export const upsertSale = actionClient
       });
     }
 
-    await db.$transaction(async (trx) => {
+    await db.$transaction(async (trx: any) => {
       const sale = await trx.sale.create({
         data: {
           date: new Date(),

@@ -4,14 +4,14 @@ import { PrismaClient } from "@prisma/client";
 
 declare global {
   // eslint-disable-next-line no-var
-  var cachedPrisma: ReturnType<typeof createPrismaClient>;
+  var cachedPrisma: PrismaClient;
 }
 
 const createPrismaClient = () => {
   return new PrismaClient();
 };
 
-let prisma: ReturnType<typeof createPrismaClient>;
+let prisma: PrismaClient;
 if (process.env.NODE_ENV === "production") {
   prisma = createPrismaClient();
 } else {
@@ -21,4 +21,4 @@ if (process.env.NODE_ENV === "production") {
   prisma = global.cachedPrisma;
 }
 
-export const db = prisma;
+export const db: PrismaClient = prisma;

@@ -17,11 +17,7 @@ export const getLast14DaysRevenue = async () => {
 
   const totalLast14DaysRevenue: DayTotalRevenueDto[] = [];
   for (const day of last14Days) {
-    const dayTotalRevenue = await db.$queryRawUnsafe<
-      {
-        totalRevenue: number;
-      }[]
-    >(
+    const dayTotalRevenue = (await (db.$queryRawUnsafe as any)(
       `
            SELECT SUM("SaleProduct"."unitPrice" * "SaleProduct"."quantity") as "totalRevenue"
            FROM "SaleProduct"
@@ -30,7 +26,9 @@ export const getLast14DaysRevenue = async () => {
          `,
       day.startOf("day").toDate(),
       day.endOf("day").toDate()
-    );
+    )) as {
+      totalRevenue: number;
+    }[];
 
     totalLast14DaysRevenue.push({
       day: day.format("DD/MM"),
