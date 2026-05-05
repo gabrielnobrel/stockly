@@ -20,15 +20,15 @@ export const getMostSoldProducts = async (): Promise<MostSoldProductDto[]> => {
     LIMIT 10
   `;
 
-  const mostSoldProducts = await db.$queryRawUnsafe<
-    {
-      productId: string;
-      name: string;
-      totalSold: number;
-      stock: number;
-      price: number;
-    }[]
-  >(mostSoldProductsQuery);
+  const mostSoldProducts = (await (db.$queryRawUnsafe as any)(
+    mostSoldProductsQuery
+  )) as {
+    productId: string;
+    name: string;
+    totalSold: number;
+    stock: number;
+    price: number;
+  }[];
 
   return mostSoldProducts.map((product) => ({
     ...product,

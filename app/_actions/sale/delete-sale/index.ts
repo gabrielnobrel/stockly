@@ -21,7 +21,7 @@ export const deleteSale = actionClient
 
       // Executa em transação: primeiro remove saleProducts, depois remove a sale,
       // e por fim repõe o estoque a partir dos dados já carregados em `sale`.
-      await db.$transaction(async (trx) => {
+      await db.$transaction(async (trx: any) => {
         await trx.saleProduct.deleteMany({
           where: { saleId: id },
         });

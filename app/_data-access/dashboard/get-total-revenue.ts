@@ -9,9 +9,9 @@ export const getTotalRevenue = async (): Promise<number> => {
   FROM "SaleProduct"
   JOIN "Sale" ON "SaleProduct"."saleId" = "Sale"."id"`;
 
-  const totalRevenue = await db.$queryRawUnsafe<{ totalRevenue: number }[]>(
+  const totalRevenue = (await (db.$queryRawUnsafe as any)(
     totalRevenueQuery
-  );
+  )) as { totalRevenue: number }[];
 
   return totalRevenue[0]?.totalRevenue ?? 0;
 };

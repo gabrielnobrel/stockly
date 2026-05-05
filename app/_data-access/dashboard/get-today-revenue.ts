@@ -13,11 +13,11 @@ export const getTodayRevenue = async (): Promise<number> => {
   const endOfDay = new Date(new Date().setHours(23, 59, 59, 999));
 
   // Gerar o SQL
-  const todayRevenue = await db.$queryRawUnsafe<{ todayRevenue: number }[]>(
+  const todayRevenue = (await (db.$queryRawUnsafe as any)(
     todayRevenueQuery,
     startOfDay,
     endOfDay
-  );
+  )) as { todayRevenue: number }[];
 
   return todayRevenue[0].todayRevenue;
 };
